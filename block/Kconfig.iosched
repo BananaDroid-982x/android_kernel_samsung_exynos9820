@@ -45,7 +45,11 @@ config IOSCHED_FIOPS
 	---help---
 	  This is an IOPS based I/O scheduler. It will try to distribute
           IOPS equally among all processes in the system. It's mainly for
-          Flash based storage.	  	  
+          Flash based storage.
+          
+config IOSCHED_MAPLE
+	tristate "Maple I/O scheduler"
+	default n          	  	  
 
 config IOSCHED_DEADLINE
 	tristate "Deadline I/O scheduler"
@@ -101,7 +105,10 @@ choice
 		bool "SIO" if IOSCHED_SIO=y
 		
 	config DEFAULT_FIOPS
-		bool "FIOPS" if IOSCHED_FIOPS=y				
+		bool "FIOPS" if IOSCHED_FIOPS=y
+		
+	config DEFAULT_MAPLE
+		bool "MAPLE" if IOSCHED_MAPLE=y					
 
 endchoice
 
@@ -114,6 +121,7 @@ config DEFAULT_IOSCHED
 	default "zen" if DEFAULT_ZEN
 	default "sio" if DEFAULT_SIO
 	default "fiops" if DEFAULT_FIOPS
+	default "maple" if DEFAULT_MAPLE
 
 config MQ_IOSCHED_DEADLINE
 	tristate "MQ deadline I/O scheduler"
